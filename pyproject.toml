@@ -13,7 +13,7 @@ authors = [
   {name = "Thara Palanivel", email = "Tharangini.Palanivel@ibm.com"},
   {name = "Ted Chang", email = "htchang@us.ibm.com"},
 ]
-license = "Apache-2.0"
+license = {text = "Apache-2.0"}
 readme = "README.md"
 requires-python = "~=3.12"
 keywords = ['aiu-fms-testing-utils', 'python', 'utils']
