@@ -1,0 +1,51 @@
+name: Publish Python 🐍 distribution 📦 to PyPI and TestPyPI
+
+on:
+  push:
+    branches:
+      - main
+      - gha-build-publish # for testing from fork
+    tags:
+      - 'v*' # to trigger the workflow on tagged commits
+  workflow_dispatch:
+
+jobs:
+  build:
+    name: Build distribution 📦
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+          fetch-depth: 0 # Fetch tags for setuptools_scm
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Install build tools
+        run: python3 -m pip install build setuptools_scm
+      - name: Build a binary wheel
+        run: python3 -m build -w
+      - name: Store the distribution packages
+        uses: actions/upload-artifact@v4
+        with:
+          name: python-package-distributions
+          path: dist/
+  
+  publish-to-testpypi:
+    name: Publish Python 🐍 distribution 📦 to TestPyPI
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - name: Download all the dists
+        uses: actions/download-artifact@v4
+        with:
+          name: python-package-distributions
+          path: dist/
+      - name: Install twine
+        run: python3 -m pip install twine
+      - name: Publish distribution 📦 to TestPyPI
+        env:
+          TWINE_USERNAME: __token__
+          TWINE_PASSWORD: ${{ secrets.TEST_PYPI_API_TOKEN }}
+        run: python3 -m twine upload --repository-url https://test.pypi.org/legacy/ dist/*
