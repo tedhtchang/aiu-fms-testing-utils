@@ -13,7 +13,7 @@ authors = [
   {name = "Thara Palanivel", email = "Tharangini.Palanivel@ibm.com"},
   {name = "Ted Chang", email = "htchang@us.ibm.com"},
 ]
-license = "Apache-2.0"
+license = {text = "Apache-2.0"}
 readme = "README.md"
 requires-python = "~=3.12"
 keywords = ['aiu-fms-testing-utils', 'python', 'utils']
@@ -23,8 +23,8 @@ classifiers=[
     "Programming Language :: Python :: 3.12"
 ]
 dependencies = [
-"ibm-fms @ git+https://github.com/foundation-model-stack/foundation-model-stack@main",
-"fms-model-optimizer @ git+https://github.com/foundation-model-stack/fms-model-optimizer@main",
+"ibm-fms",
+"fms-model-optimizer",
 "sentencepiece",
 "numpy",
 "transformers",
