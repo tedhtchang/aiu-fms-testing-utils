@@ -1,0 +1,59 @@
+name: Publish Python 🐍 distribution 📦 to PyPI and TestPyPI
+on:
+  release:
+    types: [published]
+# on:
+#   push:
+#     branches:
+#       - gha-build-publish
+#     tags:
+#       - 'v*' # to trigger the workflow on tagged commits
+#   workflow_dispatch:
+#     inputs:
+#       version:
+#         description: 'Package version to build'
+#         required: true
+
+jobs:
+  build:
+    name: Build distribution 📦
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+          fetch-depth: 0 # Fetch tags for setuptools_scm
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Install build tools
+        run: python3 -m pip install build setuptools_scm
+      - name: Build a binary wheel
+        run: python3 -m build -w
+      - name: Store the distribution packages
+        uses: actions/upload-artifact@v4
+        with:
+          name: python-package-distributions
+          path: dist/
+  
+  publish-to-testpypi:
+    name: Publish Python 🐍 distribution 📦 to TestPyPI
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: testpypi
+      url: https://test.pypi.org/project/aiu-fms-testing-utils
+    permissions:
+      id-token: write  # Required for Trusted Publishing
+    steps:
+      - name: Download all the dists
+        uses: actions/download-artifact@v4
+        with:
+          name: python-package-distributions
+          path: dist/
+      - name: Publish distribution 📦 to TestPyPI
+        uses: pypa/gh-action-pypi-publish@release/v1
+        with:
+          repository-url: https://test.pypi.org/legacy/ # testpyi api endpoint
+          verbose: true
