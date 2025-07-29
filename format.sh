@@ -104,7 +104,7 @@ echo 'AFTU yapf: Done'
 
 # Run mypy
 echo 'AFTU mypy:'
-# tools/type_check.sh
+tools/type_check.sh
 echo 'AFTU mypy: Done'
 
 # check spelling of specified files
