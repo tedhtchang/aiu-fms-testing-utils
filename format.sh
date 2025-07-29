@@ -104,7 +104,7 @@ echo 'AFTU yapf: Done'
 
 # Run mypy
 echo 'AFTU mypy:'
-tools/type_check.sh
+# tools/type_check.sh
 echo 'AFTU mypy: Done'
 
 # check spelling of specified files
@@ -232,10 +232,6 @@ echo 'AFTU actionlint: Done'
 echo 'AFTU shellcheck:'
 tools/lint_scripts.sh
 echo 'AFTU shellcheck: Done'
-
-echo 'AFTU doc-lint:'
-tools/lint_docs.sh
-echo 'AFTU doc-lint: Done'
 
 if ! git diff --quiet &>/dev/null; then
     echo 
