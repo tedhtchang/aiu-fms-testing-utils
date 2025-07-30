@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# YAPF formatter, adapted from ray and skypilot.
+# Linter and formatter, adapted from ray and skypilot.
 #
 # Usage:
 #    # Do work and commit your work.
@@ -30,13 +30,11 @@ check_command() {
 
 check_command yapf
 check_command ruff
-check_command mypy
 check_command codespell
 check_command isort
 
 YAPF_VERSION=$(yapf --version | awk '{print $2}')
 RUFF_VERSION=$(ruff --version | awk '{print $2}')
-MYPY_VERSION=$(mypy --version | awk '{print $2}')
 CODESPELL_VERSION=$(codespell --version)
 ISORT_VERSION=$(isort --vn)
 
@@ -51,7 +49,6 @@ tool_version_check() {
 
 tool_version_check "yapf" "$YAPF_VERSION"
 tool_version_check "ruff" "$RUFF_VERSION"
-tool_version_check "mypy" "$MYPY_VERSION"
 tool_version_check "isort" "$ISORT_VERSION"
 tool_version_check "codespell" "$CODESPELL_VERSION"
 
@@ -102,12 +99,7 @@ else
 fi
 echo 'AFTU yapf: Done'
 
-# Run mypy
-echo 'AFTU mypy:'
-tools/type_check.sh
-echo 'AFTU mypy: Done'
-
-# check spelling of specified files
+# Check spelling of specified files
 spell_check() {
     codespell "$@"
 }

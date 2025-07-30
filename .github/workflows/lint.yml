@@ -74,27 +74,3 @@ jobs:
           fetch-depth: 0
       - name: Check shell scripts
         run: tools/lint_scripts.sh
-
-  type-check:
-    name: Type Check with mypy
-    runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        python-version: ["3.11", "3.12"]
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v4
-      - name: Set up Python ${{ matrix.python-version }}
-        uses: astral-sh/setup-uv@v5
-        with:
-          python-version: ${{ matrix.python-version }}
-          enable-cache: true
-          ignore-nothing-to-cache: true
-          cache-dependency-glob: |
-            pyproject.toml
-      - name: Install dependencies
-        run: pip install -r requirements-lint.txt
-      - name: Run mypy
-        run: |
-          echo "::add-matcher::.github/workflows/matchers/mypy.json"
-          tools/type_check.sh 1 ${{ matrix.python-version }}

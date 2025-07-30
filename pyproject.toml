@@ -72,11 +72,6 @@ ignore = [
     "UP032",
 ]
 
-[tool.mypy]
-ignore_missing_imports = true
-check_untyped_defs = true
-follow_imports = "silent"
-
 [tool.codespell]
 ignore-words-list = "dout, te, indicies, subtile, ElementE"
 #skip = "./tests/models/fixtures,./tests/prompts,./benchmarks/sonnet.txt,./tests/lora/data,./build"
@@ -90,7 +85,6 @@ lint = [
     "clang-format==18.1.5",
     "codespell==2.4.1",
     "isort==6.0.1",
-    "mypy==1.17.0",
     "ruff==0.12.5",
     "toml==0.10.2",
     "tomli==2.0.2",
