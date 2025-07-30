@@ -1,5 +1,5 @@
-yapf
-ruff
-mypy
-codespell
-isort
+yapf==0.43.0
+ruff==0.12.5
+mypy==1.17.0
+codespell==2.4.1
+isort==6.0.1
