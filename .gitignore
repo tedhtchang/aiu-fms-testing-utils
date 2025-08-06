@@ -35,3 +35,6 @@ dmypy.json
 # Linting
 actionlint
 shellcheck*/
+
+# AFTU
+aiu_fms_testing_utils/_version.py
