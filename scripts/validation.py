@@ -542,7 +542,7 @@ if args.prompt_path != "":
         prompts.append(
             tokenizer.encode(
                 prompt_file_path.read_text(encoding="utf-8"), return_tensors="pt"
-            )
+            ).squeeze(0)
         )
 
 else:
